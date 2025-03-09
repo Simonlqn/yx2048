@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2048 游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>2048</h1>
+        <div id="score">得分: 0</div>
+        <div id="board"></div>
+        <div class="game-instructions">
+            <p>电脑：使用方向键移动方块</p>
+            <p>手机：滑动屏幕移动方块</p>
+        </div>
+        <div class="game-controls">
+            <button id="reset">新游戏</button>
+            <button id="history-button">历史记录</button>
+        </div>
+    </div>
+    
+    <!-- 历史记录弹出层 -->
+    <div class="history-overlay" id="history-overlay">
+        <div class="history-modal">
+            <button class="close-history" id="close-history">×</button>
+            <h2>历史记录</h2>
+            <div class="history-tabs">
+                <div class="history-tab active" data-tab="recent">最近记录</div>
+                <div class="history-tab" data-tab="top">最高分数</div>
+            </div>
+            <div class="history-content active" id="recent-content">
+                <ul id="recent-scores" class="score-list"></ul>
+            </div>
+            <div class="history-content" id="top-content">
+                <ul id="top-scores" class="score-list"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="touch-indicator">滑动方向：<span id="swipe-direction"></span></div>
+    <canvas id="fireworks" width="800" height="800" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10;"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>

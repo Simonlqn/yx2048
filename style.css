@@ -1,0 +1,268 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #faf8ef;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-size: 42px;
+    color: #776e65;
+    margin: 10px 0;
+}
+
+#score {
+    font-size: 24px;
+    color: #776e65;
+    margin-bottom: 15px;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    background-color: #bbada0;
+    padding: 10px;
+    border-radius: 10px;
+    aspect-ratio: 1/1;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background-color: #cdc1b4;
+    border-radius: 5px;
+    color: #776e65;
+    transition: all 0.2s ease-in-out;
+    aspect-ratio: 1/1;
+    font-size: calc(10px + 5vmin);
+}
+
+@media (max-width: 500px) {
+    .tile {
+        font-size: calc(10px + 4vmin);
+    }
+    
+    h1 {
+        font-size: 36px;
+        margin: 5px 0;
+    }
+    
+    #score {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 350px) {
+    .tile {
+        font-size: calc(8px + 3vmin);
+    }
+    
+    h1 {
+        font-size: 32px;
+    }
+}
+
+.tile-2 {
+    background-color: #eee4da;
+}
+
+.tile-4 {
+    background-color: #ede0c8;
+}
+
+/* 游戏控制区域 */
+.game-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    margin: 15px auto 0;
+}
+
+#reset, #history-button {
+    padding: 10px 0;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #8f7a66;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+}
+
+#reset:hover, #history-button:hover {
+    background-color: #9f8b79;
+}
+
+/* 历史记录弹出层 */
+.history-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    -webkit-overflow-scrolling: touch;
+}
+
+.history-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.history-modal {
+    background-color: #faf8ef;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    padding: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+}
+
+.history-modal h2 {
+    color: #776e65;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.history-tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #bbada0;
+}
+
+.history-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    color: #776e65;
+    font-weight: bold;
+}
+
+.history-tab.active {
+    background-color: #bbada0;
+    color: #f9f6f2;
+    border-radius: 5px 5px 0 0;
+}
+
+.history-content {
+    display: none;
+}
+
+.history-content.active {
+    display: block;
+}
+
+.close-history {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #776e65;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* 触摸指示器样式 */
+#touch-indicator {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: none;
+    z-index: 100;
+}
+
+/* 游戏操作提示 */
+.game-instructions {
+    margin-top: 10px;
+    color: #776e65;
+    font-size: 14px;
+    padding: 5px;
+}
+
+/* 分数记录样式 */
+.score-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.score-list li {
+    background-color: #eee4da;
+    margin: 5px 0;
+    padding: 12px;
+    border-radius: 5px;
+    color: #776e65;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.score-list li .score-value {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.score-list li .score-date {
+    font-size: 14px;
+    color: #a09588;
+}
